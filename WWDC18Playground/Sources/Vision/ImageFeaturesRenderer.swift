@@ -108,31 +108,12 @@ class ImageFeaturesRenderer {
 
   private func render(barcodes: [VNBarcodeObservation], in context: UIGraphicsImageRendererContext, imageSize: CGSize) {
     self.render(rectangles: barcodes, in: context, imageSize: imageSize)
-
-
-    for observation in barcodes {
-      guard let text = observation.payloadStringValue else { continue }
-      let barcodeRect = CGRect(x: observation.boundingBox.minX * imageSize.width,
-                               y: observation.boundingBox.minY * imageSize.height,
-                               width: observation.boundingBox.width * imageSize.width,
-                               height: observation.boundingBox.height * imageSize.height)
-
-      let paragraphStyle = NSMutableParagraphStyle()
-      paragraphStyle.alignment = .center
-
-      let attributess = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textFontSize),
-        NSAttributedString.Key.paragraphStyle: paragraphStyle
-      ]
-
-      text.draw(with: barcodeRect, options: .usesLineFragmentOrigin, attributes: attributess, context: nil)
-    }
   }
 
   struct Constants {
-    static let boldLineWidth: CGFloat = 4
-    static let lineWidth: CGFloat = 2
-    static let narrowLineWidth: CGFloat = 1
+    static let boldLineWidth: CGFloat = 5
+    static let lineWidth: CGFloat = 3
+    static let narrowLineWidth: CGFloat = 2
     static let textFontSize: CGFloat = 12
   }
 }

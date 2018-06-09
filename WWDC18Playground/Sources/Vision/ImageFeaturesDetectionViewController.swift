@@ -142,7 +142,7 @@ class ImageFeaturesDetectionViewController: UIViewController {
       string: "Text: \(result.text.count)\(self.confidenceString(for: result.text))\n",
       attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
     let barcodesAttributedText = NSAttributedString(
-      string: "Barcodes: \(result.barcodes.count)\(self.confidenceString(for: result.barcodes))\n",
+      string: "Barcodes: \(result.barcodes.count)\(self.confidenceString(for: result.barcodes))\(self.payloadString(for: result.barcodes))\n",
       attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue])
 
     let attributedText = NSMutableAttributedString()
@@ -155,8 +155,14 @@ class ImageFeaturesDetectionViewController: UIViewController {
 
   private func confidenceString(for observations: Set<VNObservation>) -> String {
     guard !observations.isEmpty else { return "" }
-    let confidences: [String] = observations.map({ "\($0.confidence)" })
+    let confidences: [String] = observations.map { "\($0.confidence)" }
     return ", confidence: " + confidences.joined(separator: ", ")
+  }
+
+  private func payloadString(for barcodes: Set<VNBarcodeObservation>) -> String {
+    guard !barcodes.isEmpty else { return "" }
+    let barcodePayloads: [String] = barcodes.compactMap { $0.payloadStringValue }
+    return ", payload: " + barcodePayloads.joined(separator: ", ")
   }
 
   // MARK: - Error alert
