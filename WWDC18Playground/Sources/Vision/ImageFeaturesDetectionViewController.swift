@@ -2,6 +2,7 @@ import UIKit
 import Vision
 
 class ImageFeaturesDetectionViewController: UIViewController {
+  lazy var originalImages: [UIImage] = []
   lazy var imageFeaturesDetector = ImageFeaturesDetector()
   lazy var importPhotoFlow = ImportPhotoFlow()
 
@@ -15,6 +16,7 @@ class ImageFeaturesDetectionViewController: UIViewController {
     label.autoresizingMask = [ .flexibleWidth , .flexibleHeight ]
     return label
   }()
+
   lazy var resultsLabel: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
@@ -24,14 +26,8 @@ class ImageFeaturesDetectionViewController: UIViewController {
     label.autoresizingMask = [ .flexibleWidth , .flexibleTopMargin ]
     return label
   }()
-  lazy var originalImageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.backgroundColor = .clear
-    imageView.contentMode = .scaleAspectFit
-    imageView.autoresizingMask = [ .flexibleWidth , .flexibleHeight ]
-    return imageView
-  }()
-  lazy var overlayImageView: UIImageView = {
+
+  lazy var imageView: UIImageView = {
     let imageView = UIImageView()
     imageView.backgroundColor = .clear
     imageView.contentMode = .scaleAspectFit
@@ -77,10 +73,8 @@ class ImageFeaturesDetectionViewController: UIViewController {
   }
 
   func setUpImageView() {
-    self.originalImageView.frame = self.view.bounds
-    self.view.addSubview(self.originalImageView)
-    self.overlayImageView.frame = self.view.bounds
-    self.view.addSubview(self.overlayImageView)
+    self.imageView.frame = self.view.bounds
+    self.view.addSubview(self.imageView)
   }
 
   func setUpActivityIndicator() {
@@ -100,11 +94,11 @@ class ImageFeaturesDetectionViewController: UIViewController {
   }
 
   private func setCurrentImage(_ image: UIImage?) {
-    self.originalImageView.image = image
-    self.overlayImageView.image = nil
+    self.imageView.image = image
     self.resultsLabel.attributedText = nil
 
     guard let originalImage = image else { return }
+    self.originalImages.append(originalImage)
     self.navigationItem.rightBarButtonItem?.isEnabled = false
     self.activityIndicator.isHidden = false
     self.activityIndicator.startAnimating()
@@ -122,11 +116,11 @@ class ImageFeaturesDetectionViewController: UIViewController {
     }
 
     let renderer = ImageFeaturesRenderer()
-    self.overlayImageView.image = renderer.imageWithFeatures(rectangles: Array(result.rectangles),
-                                                             faces: Array(result.faces),
-                                                             text: Array(result.text),
-                                                             barcodes: Array(result.barcodes),
-                                                             originalImage: originalImage)
+    self.imageView.image = renderer.imageWithFeatures(rectangles: Array(result.rectangles),
+                                                      faces: Array(result.faces),
+                                                      text: Array(result.text),
+                                                      barcodes: Array(result.barcodes),
+                                                      originalImage: originalImage)
 
     self.updateResultsLabel(with: result)
   }

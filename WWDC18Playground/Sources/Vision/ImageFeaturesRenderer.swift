@@ -9,6 +9,8 @@ class ImageFeaturesRenderer {
                          originalImage: UIImage) -> UIImage {
     let imageSize = originalImage.size
     return UIGraphicsImageRenderer(size: imageSize).image { rendererContext in
+      originalImage.draw(at: .zero)
+
       // Invert Y-axis. Observations use lower-left corner as an origin
       rendererContext.cgContext.scaleBy(x: 1, y: -1)
       rendererContext.cgContext.translateBy(x: 0, y: -imageSize.height)

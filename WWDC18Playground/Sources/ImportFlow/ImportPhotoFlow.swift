@@ -12,19 +12,19 @@ class ImportPhotoFlow: NSObject, UIImagePickerControllerDelegate, UINavigationCo
 
     self.completionHandler = completion
 
-    let prompt = UIAlertController(title: "Choose a Photo",
-                                   message: "Please choose an image",
+    let prompt = UIAlertController(title: NSLocalizedString("Choose a Photo", comment: ""),
+                                   message: nil,
                                    preferredStyle: .actionSheet)
 
-    let cameraAction = UIAlertAction(title: "Camera",
+    let cameraAction = UIAlertAction(title: NSLocalizedString("Camera", comment: ""),
                                      style: .default,
                                      handler: { _ in self.presentImagePicker(for: .camera, from: controller) })
 
-    let libraryAction = UIAlertAction(title: "Photo Library",
+    let libraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""),
                                       style: .default,
                                       handler: { _ in self.presentImagePicker(for: .photoLibrary, from: controller) })
 
-    let cancelAction = UIAlertAction(title: "Cancel",
+    let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
                                      style: .cancel,
                                      handler: { _ in self.complete(with: nil) })
 
