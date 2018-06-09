@@ -85,7 +85,7 @@
 				3A0BF20620CAD0EA00FBE4A4 /* ARKit */,
 				3A0BF20720CAD0EA00FBE4A4 /* CoreML */,
 				3A0BF20220CAD0EA00FBE4A4 /* Topics */,
-				3A0BF20820CAD0EA00FBE4A4 /* Vision */,
+				3A0BF20820CAD0EA00FBE4A4 /* VisionDetection */,
 				3A0BF1FB20CAC62400FBE4A4 /* AppDelegate.swift */,
 			);
 			path = Sources;
@@ -117,7 +117,7 @@
 			path = CoreML;
 			sourceTree = "<group>";
 		};
-		3A0BF20820CAD0EA00FBE4A4 /* Vision */ = {
+		3A0BF20820CAD0EA00FBE4A4 /* VisionDetection */ = {
 			isa = PBXGroup;
 			children = (
 				3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */,
@@ -125,7 +125,7 @@
 				3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */,
 				3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */,
 			);
-			path = Vision;
+			path = VisionDetection;
 			sourceTree = "<group>";
 		};
 		3A0BF21220CAF0BA00FBE4A4 /* ImportFlow */ = {
