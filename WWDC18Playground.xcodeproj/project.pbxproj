@@ -13,9 +13,13 @@
 		3A0BF20920CAD0EA00FBE4A4 /* TopicsPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20320CAD0EA00FBE4A4 /* TopicsPresenterProtocol.swift */; };
 		3A0BF20A20CAD0EA00FBE4A4 /* TopicsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20420CAD0EA00FBE4A4 /* TopicsPresenter.swift */; };
 		3A0BF20B20CAD0EA00FBE4A4 /* TopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20520CAD0EA00FBE4A4 /* TopicsViewController.swift */; };
-		3A0BF20D20CAD10200FBE4A4 /* VisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20C20CAD10200FBE4A4 /* VisionViewController.swift */; };
+		3A0BF20D20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20C20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift */; };
 		3A0BF20F20CAD14000FBE4A4 /* CoreMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF20E20CAD14000FBE4A4 /* CoreMLViewController.swift */; };
 		3A0BF21120CAD14600FBE4A4 /* ARKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21020CAD14600FBE4A4 /* ARKitViewController.swift */; };
+		3A0BF21420CAF0CE00FBE4A4 /* ImportPhotoFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21320CAF0CE00FBE4A4 /* ImportPhotoFlow.swift */; };
+		3A0BF21620CB163C00FBE4A4 /* ImageFeaturesDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */; };
+		3A0BF21820CB171700FBE4A4 /* VisionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */; };
+		3A0BF21A20CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +31,13 @@
 		3A0BF20320CAD0EA00FBE4A4 /* TopicsPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsPresenterProtocol.swift; sourceTree = "<group>"; };
 		3A0BF20420CAD0EA00FBE4A4 /* TopicsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsPresenter.swift; sourceTree = "<group>"; };
 		3A0BF20520CAD0EA00FBE4A4 /* TopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsViewController.swift; sourceTree = "<group>"; };
-		3A0BF20C20CAD10200FBE4A4 /* VisionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewController.swift; sourceTree = "<group>"; };
+		3A0BF20C20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeaturesDetectionViewController.swift; sourceTree = "<group>"; };
 		3A0BF20E20CAD14000FBE4A4 /* CoreMLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMLViewController.swift; sourceTree = "<group>"; };
 		3A0BF21020CAD14600FBE4A4 /* ARKitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKitViewController.swift; sourceTree = "<group>"; };
+		3A0BF21320CAF0CE00FBE4A4 /* ImportPhotoFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPhotoFlow.swift; sourceTree = "<group>"; };
+		3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeaturesDetector.swift; sourceTree = "<group>"; };
+		3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionUtilities.swift; sourceTree = "<group>"; };
+		3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeaturesRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,7 @@
 		3A0BF1F920CAC62400FBE4A4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3A0BF21220CAF0BA00FBE4A4 /* ImportFlow */,
 				3A0BF20620CAD0EA00FBE4A4 /* ARKit */,
 				3A0BF20720CAD0EA00FBE4A4 /* CoreML */,
 				3A0BF20220CAD0EA00FBE4A4 /* Topics */,
@@ -111,9 +120,20 @@
 		3A0BF20820CAD0EA00FBE4A4 /* Vision */ = {
 			isa = PBXGroup;
 			children = (
-				3A0BF20C20CAD10200FBE4A4 /* VisionViewController.swift */,
+				3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */,
+				3A0BF20C20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift */,
+				3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */,
+				3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */,
 			);
 			path = Vision;
+			sourceTree = "<group>";
+		};
+		3A0BF21220CAF0BA00FBE4A4 /* ImportFlow */ = {
+			isa = PBXGroup;
+			children = (
+				3A0BF21320CAF0CE00FBE4A4 /* ImportPhotoFlow.swift */,
+			);
+			path = ImportFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,10 +208,14 @@
 			files = (
 				3A0BF20A20CAD0EA00FBE4A4 /* TopicsPresenter.swift in Sources */,
 				3A0BF20920CAD0EA00FBE4A4 /* TopicsPresenterProtocol.swift in Sources */,
+				3A0BF21A20CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift in Sources */,
 				3A0BF20B20CAD0EA00FBE4A4 /* TopicsViewController.swift in Sources */,
-				3A0BF20D20CAD10200FBE4A4 /* VisionViewController.swift in Sources */,
+				3A0BF20D20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift in Sources */,
 				3A0BF21120CAD14600FBE4A4 /* ARKitViewController.swift in Sources */,
+				3A0BF21420CAF0CE00FBE4A4 /* ImportPhotoFlow.swift in Sources */,
 				3A0BF20F20CAD14000FBE4A4 /* CoreMLViewController.swift in Sources */,
+				3A0BF21620CB163C00FBE4A4 /* ImageFeaturesDetector.swift in Sources */,
+				3A0BF21820CB171700FBE4A4 /* VisionUtilities.swift in Sources */,
 				3A0BF1FD20CAC62500FBE4A4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
