@@ -29,6 +29,7 @@ extension TopicsPresenter {
   static func makeDefault() -> TopicsPresenter {
     return TopicsPresenter(topics: [
       Topic(name: "Vision: detecting objects in still images", controllerProvider: { ImageFeaturesDetectionViewController() }),
+      Topic(name: "Vision: tracking objects in video", controllerProvider: { VideoObjectsTrackingViewController() }),
       Topic(name: "CoreML", controllerProvider: { CoreMLViewController() }),
       Topic(name: "ARKit", controllerProvider: { ARKitViewController() }),
     ])

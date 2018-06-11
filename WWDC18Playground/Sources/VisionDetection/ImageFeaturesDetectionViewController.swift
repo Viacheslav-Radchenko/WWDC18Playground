@@ -2,9 +2,9 @@ import UIKit
 import Vision
 
 class ImageFeaturesDetectionViewController: UIViewController {
-  lazy var originalImages: [UIImage] = []
-  lazy var imageFeaturesDetector = ImageFeaturesDetector()
-  lazy var importPhotoFlow = ImportPhotoFlow()
+  private lazy var originalImages: [UIImage] = []
+  private lazy var imageFeaturesDetector = ImageFeaturesDetector()
+  private lazy var importPhotoFlow = ImportPhotoFlow()
 
   lazy var infoLabel: UILabel = {
     let label = UILabel()
@@ -44,7 +44,7 @@ class ImageFeaturesDetectionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.title = NSLocalizedString("Vision", comment: "")
+    self.title = NSLocalizedString("Detection", comment: "")
     self.setUpNavigationItems()
     self.setUpInfoLabel()
     self.setUpImageView()
@@ -120,6 +120,7 @@ class ImageFeaturesDetectionViewController: UIViewController {
                                                       faces: Array(result.faces),
                                                       text: Array(result.text),
                                                       barcodes: Array(result.barcodes),
+                                                      objects: Array(result.objects),
                                                       originalImage: originalImage)
 
     self.updateResultsLabel(with: result)

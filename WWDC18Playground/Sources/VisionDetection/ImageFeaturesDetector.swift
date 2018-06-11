@@ -19,17 +19,20 @@ struct DetectionResult {
   var faces: Set<VNFaceObservation>
   var text: Set<VNTextObservation>
   var barcodes: Set<VNBarcodeObservation>
+  var objects: Set<VNDetectedObjectObservation>
   var error: Error?
 
   init(rectangles: Set<VNRectangleObservation>,
        faces: Set<VNFaceObservation>,
        text: Set<VNTextObservation>,
        barcodes: Set<VNBarcodeObservation>,
+       objects: Set<VNDetectedObjectObservation>,
        error: Error?) {
     self.rectangles = rectangles
     self.faces = faces
     self.text = text
     self.barcodes = barcodes
+    self.objects = objects
     self.error = error
   }
 
@@ -38,6 +41,7 @@ struct DetectionResult {
               faces: Set(),
               text: Set(),
               barcodes: Set(),
+              objects: Set(),
               error: error)
   }
 
@@ -46,28 +50,50 @@ struct DetectionResult {
               faces: Set(),
               text: Set(),
               barcodes: Set(),
+              objects: Set(),
               error: nil)
+  }
+
+  var allObservations: Set<VNDetectedObjectObservation> {
+    var results = Set<VNDetectedObjectObservation>()
+    results.formUnion(self.rectangles)
+    results.formUnion(self.faces)
+    results.formUnion(self.text)
+    results.formUnion(self.barcodes)
+    results.formUnion(self.objects)
+    return results
   }
 }
 
 class ImageFeaturesDetector {
+  func detect(features: DetectableFeatures, in cvPixelBuffer: CVPixelBuffer, orientation: CGImagePropertyOrientation, completion: @escaping (DetectionResult) -> Void) {
+    let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: cvPixelBuffer,
+                                                    orientation: orientation,
+                                                    options: [:])
+    self.detect(features: features, imageRequestHandler: imageRequestHandler, completion: completion)
+  }
+  
   func detect(features: DetectableFeatures, in image: UIImage, completion: @escaping (DetectionResult) -> Void) {
-    guard !features.isEmpty else {
-      let error = NSError(domain: "image.features.detector", code: 0, userInfo: [NSLocalizedDescriptionKey : NSLocalizedString("No features requested", comment: "")])
-      completion(DetectionResult(error: error))
-      return
-    }
-
     guard let cgImage = image.cgImage else {
       let error = NSError(domain: "image.features.detector", code: 1, userInfo: [NSLocalizedDescriptionKey : NSLocalizedString("Invalid image format", comment: "")])
       completion(DetectionResult(error: error))
       return
     }
 
-    let imageRequests = self.makeVisionRequests(for: features)
     let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage,
                                                     orientation: CGImagePropertyOrientation(image.imageOrientation),
                                                     options: [:])
+    self.detect(features: features, imageRequestHandler: imageRequestHandler, completion: completion)
+  }
+
+  private func detect(features: DetectableFeatures, imageRequestHandler: VNImageRequestHandler, completion: @escaping (DetectionResult) -> Void) {
+    guard !features.isEmpty else {
+      let error = NSError(domain: "image.features.detector", code: 0, userInfo: [NSLocalizedDescriptionKey : NSLocalizedString("No features requested", comment: "")])
+      completion(DetectionResult(error: error))
+      return
+    }
+
+    let imageRequests = self.makeVisionRequests(for: features)
 
     DispatchQueue.global(qos: .userInitiated).async {
       var result = DetectionResult()
@@ -82,6 +108,8 @@ class ImageFeaturesDetector {
             result.barcodes.formUnion(barcodes)
           } else if let rectangles = request.results as? [VNRectangleObservation] {
             result.rectangles.formUnion(rectangles)
+          } else if let objects = request.results as? [VNDetectedObjectObservation] {
+            result.objects.formUnion(objects)
           }
         }
       } catch {

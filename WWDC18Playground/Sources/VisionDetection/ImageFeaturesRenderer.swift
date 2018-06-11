@@ -6,6 +6,7 @@ class ImageFeaturesRenderer {
                          faces: [VNFaceObservation],
                          text: [VNTextObservation],
                          barcodes: [VNBarcodeObservation],
+                         objects: [VNDetectedObjectObservation],
                          originalImage: UIImage) -> UIImage {
     let imageSize = originalImage.size
     return UIGraphicsImageRenderer(size: imageSize).image { rendererContext in
@@ -15,7 +16,7 @@ class ImageFeaturesRenderer {
       rendererContext.cgContext.scaleBy(x: 1, y: -1)
       rendererContext.cgContext.translateBy(x: 0, y: -imageSize.height)
 
-      rendererContext.cgContext.setStrokeColor(UIColor.orange.cgColor)
+      rendererContext.cgContext.setStrokeColor(UIColor.magenta.cgColor)
       self.render(rectangles: rectangles, in: rendererContext, imageSize: imageSize)
 
       rendererContext.cgContext.setStrokeColor(UIColor.green.cgColor)
@@ -26,6 +27,9 @@ class ImageFeaturesRenderer {
 
       rendererContext.cgContext.setStrokeColor(UIColor.blue.cgColor)
       self.render(barcodes: barcodes, in: rendererContext, imageSize: imageSize)
+
+      rendererContext.cgContext.setStrokeColor(UIColor.yellow.cgColor)
+      self.render(objects: objects, in: rendererContext, imageSize: imageSize)
     }
   }
 
@@ -110,6 +114,18 @@ class ImageFeaturesRenderer {
 
   private func render(barcodes: [VNBarcodeObservation], in context: UIGraphicsImageRendererContext, imageSize: CGSize) {
     self.render(rectangles: barcodes, in: context, imageSize: imageSize)
+  }
+
+  private func render(objects: [VNDetectedObjectObservation], in context: UIGraphicsImageRendererContext, imageSize: CGSize) {
+    for observation in objects {
+      let rect = CGRect(x: observation.boundingBox.minX * imageSize.width,
+                            y: observation.boundingBox.minY * imageSize.height,
+                            width: observation.boundingBox.width * imageSize.width,
+                            height: observation.boundingBox.height * imageSize.height)
+      let rectPath = UIBezierPath(rect: rect)
+      rectPath.lineWidth = Constants.lineWidth
+      rectPath.stroke()
+    }
   }
 
   struct Constants {

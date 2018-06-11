@@ -20,6 +20,11 @@
 		3A0BF21620CB163C00FBE4A4 /* ImageFeaturesDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */; };
 		3A0BF21820CB171700FBE4A4 /* VisionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */; };
 		3A0BF21A20CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */; };
+		3A0BF21D20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21C20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift */; };
+		3A0BF21F20CC7E4F00FBE4A4 /* ObjectsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF21E20CC7E4F00FBE4A4 /* ObjectsTracker.swift */; };
+		3A0BF22120CC801200FBE4A4 /* VideoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22020CC801200FBE4A4 /* VideoReader.swift */; };
+		3A0BF22320CC845D00FBE4A4 /* VideoFeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */; };
+		3A0BF22520CC915C00FBE4A4 /* ImportVideoFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22420CC915C00FBE4A4 /* ImportVideoFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,11 @@
 		3A0BF21520CB163C00FBE4A4 /* ImageFeaturesDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeaturesDetector.swift; sourceTree = "<group>"; };
 		3A0BF21720CB171700FBE4A4 /* VisionUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionUtilities.swift; sourceTree = "<group>"; };
 		3A0BF21920CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeaturesRenderer.swift; sourceTree = "<group>"; };
+		3A0BF21C20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoObjectsTrackingViewController.swift; sourceTree = "<group>"; };
+		3A0BF21E20CC7E4F00FBE4A4 /* ObjectsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsTracker.swift; sourceTree = "<group>"; };
+		3A0BF22020CC801200FBE4A4 /* VideoReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoReader.swift; sourceTree = "<group>"; };
+		3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFeeder.swift; sourceTree = "<group>"; };
+		3A0BF22420CC915C00FBE4A4 /* ImportVideoFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportVideoFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,7 @@
 		3A0BF1F920CAC62400FBE4A4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3A0BF21B20CC764100FBE4A4 /* VisionTracking */,
 				3A0BF21220CAF0BA00FBE4A4 /* ImportFlow */,
 				3A0BF20620CAD0EA00FBE4A4 /* ARKit */,
 				3A0BF20720CAD0EA00FBE4A4 /* CoreML */,
@@ -131,9 +142,21 @@
 		3A0BF21220CAF0BA00FBE4A4 /* ImportFlow */ = {
 			isa = PBXGroup;
 			children = (
+				3A0BF22420CC915C00FBE4A4 /* ImportVideoFlow.swift */,
 				3A0BF21320CAF0CE00FBE4A4 /* ImportPhotoFlow.swift */,
 			);
 			path = ImportFlow;
+			sourceTree = "<group>";
+		};
+		3A0BF21B20CC764100FBE4A4 /* VisionTracking */ = {
+			isa = PBXGroup;
+			children = (
+				3A0BF22020CC801200FBE4A4 /* VideoReader.swift */,
+				3A0BF21C20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift */,
+				3A0BF21E20CC7E4F00FBE4A4 /* ObjectsTracker.swift */,
+				3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */,
+			);
+			path = VisionTracking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,16 +229,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0BF22320CC845D00FBE4A4 /* VideoFeeder.swift in Sources */,
 				3A0BF20A20CAD0EA00FBE4A4 /* TopicsPresenter.swift in Sources */,
 				3A0BF20920CAD0EA00FBE4A4 /* TopicsPresenterProtocol.swift in Sources */,
 				3A0BF21A20CB6E0900FBE4A4 /* ImageFeaturesRenderer.swift in Sources */,
 				3A0BF20B20CAD0EA00FBE4A4 /* TopicsViewController.swift in Sources */,
 				3A0BF20D20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift in Sources */,
+				3A0BF21F20CC7E4F00FBE4A4 /* ObjectsTracker.swift in Sources */,
+				3A0BF22120CC801200FBE4A4 /* VideoReader.swift in Sources */,
 				3A0BF21120CAD14600FBE4A4 /* ARKitViewController.swift in Sources */,
 				3A0BF21420CAF0CE00FBE4A4 /* ImportPhotoFlow.swift in Sources */,
+				3A0BF22520CC915C00FBE4A4 /* ImportVideoFlow.swift in Sources */,
 				3A0BF20F20CAD14000FBE4A4 /* CoreMLViewController.swift in Sources */,
 				3A0BF21620CB163C00FBE4A4 /* ImageFeaturesDetector.swift in Sources */,
 				3A0BF21820CB171700FBE4A4 /* VisionUtilities.swift in Sources */,
+				3A0BF21D20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift in Sources */,
 				3A0BF1FD20CAC62500FBE4A4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
