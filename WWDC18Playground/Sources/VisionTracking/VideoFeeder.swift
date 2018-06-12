@@ -48,7 +48,7 @@ class VideoFeeder {
     self.feedNextFrame()
   }
 
-  func feedNextFrame() {
+  private func feedNextFrame() {
     if let frame = self.videoReader.nextFrame() {
       self.framesCounter = self.framesCounter + 1
       self.frameHandler?(frame, self.framesCounter)

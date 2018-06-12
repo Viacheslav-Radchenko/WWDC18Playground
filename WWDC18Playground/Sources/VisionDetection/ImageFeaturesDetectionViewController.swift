@@ -2,9 +2,8 @@ import UIKit
 import Vision
 
 class ImageFeaturesDetectionViewController: UIViewController {
-  private lazy var originalImages: [UIImage] = []
-  private lazy var imageFeaturesDetector = ImageFeaturesDetector()
   private lazy var importPhotoFlow = ImportPhotoFlow()
+  private lazy var imageFeaturesDetector = ImageFeaturesDetector()
 
   lazy var infoLabel: UILabel = {
     let label = UILabel()
@@ -98,13 +97,9 @@ class ImageFeaturesDetectionViewController: UIViewController {
     self.resultsLabel.attributedText = nil
 
     guard let originalImage = image else { return }
-    self.originalImages.append(originalImage)
-    self.navigationItem.rightBarButtonItem?.isEnabled = false
-    self.activityIndicator.isHidden = false
-    self.activityIndicator.startAnimating()
+    self.showLoadingIndicator()
     self.imageFeaturesDetector.detect(features: .allSupported, in: originalImage) { [weak self] result in
-      self?.activityIndicator.stopAnimating()
-      self?.navigationItem.rightBarButtonItem?.isEnabled = true
+      self?.hideLoadingIndicator()
       self?.handleDetectedResults(result, originalImage: originalImage)
     }
   }
@@ -158,6 +153,17 @@ class ImageFeaturesDetectionViewController: UIViewController {
     guard !barcodes.isEmpty else { return "" }
     let barcodePayloads: [String] = barcodes.compactMap { $0.payloadStringValue }
     return ", payload: " + barcodePayloads.joined(separator: ", ")
+  }
+
+  private func showLoadingIndicator() {
+    self.navigationItem.rightBarButtonItem?.isEnabled = false
+    self.activityIndicator.isHidden = false
+    self.activityIndicator.startAnimating()
+  }
+
+  private func hideLoadingIndicator() {
+    self.activityIndicator.stopAnimating()
+    self.navigationItem.rightBarButtonItem?.isEnabled = true
   }
 
   // MARK: - Error alert

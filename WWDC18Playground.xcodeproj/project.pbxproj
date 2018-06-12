@@ -25,6 +25,7 @@
 		3A0BF22120CC801200FBE4A4 /* VideoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22020CC801200FBE4A4 /* VideoReader.swift */; };
 		3A0BF22320CC845D00FBE4A4 /* VideoFeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */; };
 		3A0BF22520CC915C00FBE4A4 /* ImportVideoFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BF22420CC915C00FBE4A4 /* ImportVideoFlow.swift */; };
+		F66924DC20D06AE6008CA140 /* VideoTrackingProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66924DB20D06AE6008CA140 /* VideoTrackingProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		3A0BF22020CC801200FBE4A4 /* VideoReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoReader.swift; sourceTree = "<group>"; };
 		3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFeeder.swift; sourceTree = "<group>"; };
 		3A0BF22420CC915C00FBE4A4 /* ImportVideoFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportVideoFlow.swift; sourceTree = "<group>"; };
+		F66924DB20D06AE6008CA140 /* VideoTrackingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTrackingProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				3A0BF21C20CC764100FBE4A4 /* VideoObjectsTrackingViewController.swift */,
 				3A0BF21E20CC7E4F00FBE4A4 /* ObjectsTracker.swift */,
 				3A0BF22220CC845D00FBE4A4 /* VideoFeeder.swift */,
+				F66924DB20D06AE6008CA140 /* VideoTrackingProcessor.swift */,
 			);
 			path = VisionTracking;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				3A0BF20B20CAD0EA00FBE4A4 /* TopicsViewController.swift in Sources */,
 				3A0BF20D20CAD10200FBE4A4 /* ImageFeaturesDetectionViewController.swift in Sources */,
 				3A0BF21F20CC7E4F00FBE4A4 /* ObjectsTracker.swift in Sources */,
+				F66924DC20D06AE6008CA140 /* VideoTrackingProcessor.swift in Sources */,
 				3A0BF22120CC801200FBE4A4 /* VideoReader.swift in Sources */,
 				3A0BF21120CAD14600FBE4A4 /* ARKitViewController.swift in Sources */,
 				3A0BF21420CAF0CE00FBE4A4 /* ImportPhotoFlow.swift in Sources */,

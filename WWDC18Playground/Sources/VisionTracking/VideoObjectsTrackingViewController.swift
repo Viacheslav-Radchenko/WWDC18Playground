@@ -4,10 +4,7 @@ import Vision
 
 class VideoObjectsTrackingViewController: UIViewController {
   private lazy var importVideoFlow = ImportVideoFlow()
-  private lazy var imageFeaturesDetector = ImageFeaturesDetector()
-  private var latestDetectionResult: DetectionResult?
-  private var videoFeeder: VideoFeeder?
-  private var objectsTracker: ObjectsTracker?
+  private lazy var videoTrackingProcessor = VideoTrackingProcessor()
 
   lazy var infoLabel: UILabel = {
     let label = UILabel()
@@ -57,7 +54,7 @@ class VideoObjectsTrackingViewController: UIViewController {
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    self.cleanUpVideoFeederIfNeeded()
+    self.stopVideoTrackingIfNeeded()
   }
 
   // MARK: - Setup
@@ -102,73 +99,65 @@ class VideoObjectsTrackingViewController: UIViewController {
   }
 
   private func setCurrentVideo(_ video: AVAsset?) {
-    self.cleanUpVideoFeederIfNeeded()
+    self.stopVideoTrackingIfNeeded()
     self.imageView.image = nil
     self.resultsLabel.attributedText = nil
 
-    guard let asset = video, let videoReader = VideoReader(videoAsset: asset) else { return }
-    let videoOrientation = videoReader.orientation
-    self.videoFeeder = VideoFeeder(reader: videoReader)
-    self.videoFeeder?.start(frameHandler: { [weak self] framePixelBuffer, frameIndex in
-      self?.handleCurrentFrame(framePixelBuffer, orientation: videoOrientation, frameIndex: frameIndex)
+    guard let asset = video else { return }
+    self.showLoadingIndicator()
+    self.videoTrackingProcessor.startProcessing(videoAsset: asset, frameHandler: { [weak self] framePixelBuffer, detectionResult, frameIndex in
+      if detectionResult != nil {
+        self?.hideLoadingIndicator()
+      }
+      self?.handleCurrentFrame(framePixelBuffer, detectionResult: detectionResult, frameIndex: frameIndex)
     }, errorHandler: { [weak self] error in
+      self?.hideLoadingIndicator()
       self?.showError(error)
-      self?.cleanUpVideoFeederIfNeeded()
     })
   }
 
-  private func handleCurrentFrame(_ framePixelBuffer: CVPixelBuffer, orientation: CGImagePropertyOrientation, frameIndex: UInt) {
+  private func handleCurrentFrame(_ framePixelBuffer: CVPixelBuffer, detectionResult: DetectionResult?, frameIndex: UInt) {
     let ciImage = CIImage(cvPixelBuffer: framePixelBuffer)
     let image = UIImage(ciImage: ciImage)
-    if let detectionResult = self.latestDetectionResult {
+    if let result = detectionResult {
       let renderer = ImageFeaturesRenderer()
-      self.imageView.image = renderer.imageWithFeatures(rectangles: Array(detectionResult.rectangles),
-                                                        faces: Array(detectionResult.faces),
-                                                        text: Array(detectionResult.text),
-                                                        barcodes: Array(detectionResult.barcodes),
-                                                        objects: Array(detectionResult.objects),
+      self.imageView.image = renderer.imageWithFeatures(rectangles: Array(result.rectangles),
+                                                        faces: Array(result.faces),
+                                                        text: Array(result.text),
+                                                        barcodes: Array(result.barcodes),
+                                                        objects: Array(result.objects),
                                                         originalImage: image)
+      if let error = result.error {
+        self.updateResultsLabel(text: error.localizedDescription, isError: true)
+      } else {
+        self.updateResultsLabel(text: "Detected: \(result.allObservations.count) objects", isError: false)
+      }
     } else {
       self.imageView.image = image
     }
-
-    if frameIndex == 0 {
-      self.imageFeaturesDetector.detect(features: [.faces, .rectangles], in: framePixelBuffer, orientation: orientation) { [weak self] result in
-        self?.handleDetectedResults(result)
-        self?.resetObjectsTracker(result)
-      }
-    } else {
-      self.objectsTracker?.track(in: framePixelBuffer, orientation: orientation) { [weak self] result in
-        self?.handleDetectedResults(result)
-      }
-    }
   }
 
-  private func cleanUpVideoFeederIfNeeded() {
-    self.videoFeeder?.stop()
-    self.videoFeeder = nil
+  private func stopVideoTrackingIfNeeded() {
+    self.videoTrackingProcessor.stopProcessing()
   }
 
-  private func handleDetectedResults(_ result: DetectionResult) {
-    if let error = result.error {
-      self.latestDetectionResult = nil
-      self.updateResultsLabel(text: error.localizedDescription)
-    } else {
-      self.latestDetectionResult = result
-      self.updateResultsLabel(text: nil)
-    }
-  }
-
-  private func resetObjectsTracker(_ result: DetectionResult) {
-    self.objectsTracker = ObjectsTracker(initialObservations: Array(result.allObservations))
-  }
-
-  private func updateResultsLabel(text: String?) {
+  private func updateResultsLabel(text: String?, isError: Bool) {
     if let text = text {
-      self.resultsLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+      self.resultsLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: isError ? UIColor.red : UIColor.green])
     } else {
       self.resultsLabel.attributedText = nil
     }
+  }
+
+  private func showLoadingIndicator() {
+    self.navigationItem.rightBarButtonItem?.isEnabled = false
+    self.activityIndicator.isHidden = false
+    self.activityIndicator.startAnimating()
+  }
+
+  private func hideLoadingIndicator() {
+    self.activityIndicator.stopAnimating()
+    self.navigationItem.rightBarButtonItem?.isEnabled = true
   }
 
   // MARK: - Error alert

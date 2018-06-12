@@ -99,21 +99,22 @@ class ImageFeaturesDetector {
       var result = DetectionResult()
       do {
         try imageRequestHandler.perform(imageRequests)
-        for request in imageRequests {
-          if let faces = request.results as? [VNFaceObservation] {
-            result.faces.formUnion(faces)
-          } else if let text = request.results as? [VNTextObservation] {
-            result.text.formUnion(text)
-          } else if let barcodes = request.results as? [VNBarcodeObservation] {
-            result.barcodes.formUnion(barcodes)
-          } else if let rectangles = request.results as? [VNRectangleObservation] {
-            result.rectangles.formUnion(rectangles)
-          } else if let objects = request.results as? [VNDetectedObjectObservation] {
-            result.objects.formUnion(objects)
-          }
-        }
       } catch {
         result.error = error
+      }
+
+      for request in imageRequests {
+        if let faces = request.results as? [VNFaceObservation] {
+          result.faces.formUnion(faces)
+        } else if let text = request.results as? [VNTextObservation] {
+          result.text.formUnion(text)
+        } else if let barcodes = request.results as? [VNBarcodeObservation] {
+          result.barcodes.formUnion(barcodes)
+        } else if let rectangles = request.results as? [VNRectangleObservation] {
+          result.rectangles.formUnion(rectangles)
+        } else if let objects = request.results as? [VNDetectedObjectObservation] {
+          result.objects.formUnion(objects)
+        }
       }
 
       DispatchQueue.main.async {
